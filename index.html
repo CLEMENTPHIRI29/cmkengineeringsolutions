@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMK Engineering Solutions – Malawi's Water & Energy Partner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;0,900;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --deep: #0d2240;
+    --teal: #0e7c7b;
+    --aqua: #1bb0ae;
+    --sky: #4dd9d7;
+    --gold: #e8a825;
+    --cream: #f7f3ec;
+    --white: #ffffff;
+    --gray-100: #f0f4f8;
+    --gray-400: #8899aa;
+    --gray-600: #445566;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--navy);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(10,22,40,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(77,217,215,0.15);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.7rem;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--aqua), var(--teal));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-icon svg { width: 22px; height: 22px; }
+  .logo-text { color: white; }
+  .logo-text strong { display: block; font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.05rem; line-height: 1.1; letter-spacing: 0.04em; }
+  .logo-text span { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sky); opacity: 0.85; }
+  .nav-links {
+    display: flex; align-items: center; gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.72); text-decoration: none;
+    font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--sky); }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--aqua), var(--teal));
+    color: white !important; padding: 0.55rem 1.4rem;
+    border-radius: 4px; font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
+    transition: opacity 0.25s !important;
+  }
+  .nav-cta:hover { opacity: 0.88; color: white !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center;
+    padding: 9rem 5% 6rem;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(14,124,123,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(27,176,174,0.1) 0%, transparent 55%),
+      radial-gradient(ellipse 30% 40% at 85% 85%, rgba(232,168,37,0.06) 0%, transparent 50%);
+  }
+  .hero-grid-overlay {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(77,217,215,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(77,217,215,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 700px;
+    animation: fadeUp 0.9s ease both;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(77,217,215,0.12);
+    border: 1px solid rgba(77,217,215,0.3);
+    color: var(--sky); font-size: 0.72rem;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 0.4rem 0.9rem; border-radius: 100px;
+    margin-bottom: 1.8rem;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--aqua); display: inline-block;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+    font-weight: 300; line-height: 1.12;
+    color: var(--white); margin-bottom: 1.6rem;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--aqua);
+  }
+  .hero-sub {
+    font-size: 1.05rem; line-height: 1.75;
+    color: rgba(255,255,255,0.62);
+    max-width: 560px; margin-bottom: 2.5rem;
+  }
+  .hero-sub strong { color: rgba(255,255,255,0.85); font-weight: 500; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--aqua), var(--teal));
+    color: white; padding: 0.85rem 2rem;
+    border-radius: 5px; text-decoration: none;
+    font-weight: 600; font-size: 0.9rem; letter-spacing: 0.03em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 24px rgba(14,124,123,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(14,124,123,0.5); }
+  .btn-outline {
+    border: 1.5px solid rgba(77,217,215,0.4); color: var(--sky);
+    padding: 0.85rem 2rem; border-radius: 5px;
+    text-decoration: none; font-weight: 500; font-size: 0.9rem;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .btn-outline:hover { background: rgba(77,217,215,0.08); border-color: var(--sky); }
+  .hero-trust {
+    position: relative; z-index: 2;
+    margin-top: 3.5rem;
+    display: flex; align-items: center; gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 0.5rem;
+    color: rgba(255,255,255,0.5); font-size: 0.78rem;
+    letter-spacing: 0.05em;
+  }
+  .trust-item svg { width: 14px; height: 14px; color: var(--aqua); }
+  .trust-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.12); }
+
+  /* ─── STATS BAR ─── */
+  .stats-bar {
+    background: var(--cream);
+    padding: 2.8rem 5%;
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 1rem;
+    border-bottom: 1px solid rgba(10,22,40,0.06);
+  }
+  .stat-item { text-align: center; padding: 1rem; }
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2.4rem; font-weight: 700;
+    color: var(--teal); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem; color: var(--gray-600);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-top: 0.4rem;
+  }
+
+  /* ─── SECTION SHARED ─── */
+  section { padding: 6rem 5%; }
+  .section-tag {
+    display: inline-block;
+    font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--teal); font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 3.5vw, 2.9rem);
+    font-weight: 300; line-height: 1.18;
+    color: var(--navy);
+    margin-bottom: 1.2rem;
+  }
+  .section-sub {
+    font-size: 1rem; line-height: 1.75;
+    color: var(--gray-600); max-width: 580px;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ─── RESILIENCE PILLARS ─── */
+  .resilience {
+    background: var(--navy);
+    color: white;
+    position: relative; overflow: hidden;
+  }
+  .resilience::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse 60% 80% at 100% 50%, rgba(14,124,123,0.2) 0%, transparent 55%);
+  }
+  .resilience .section-tag { color: var(--sky); }
+  .resilience .section-title { color: white; max-width: 600px; }
+  .resilience .section-sub { color: rgba(255,255,255,0.55); max-width: 540px; }
+  .pillar-grid {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(77,217,215,0.12);
+    border: 1.5px solid rgba(77,217,215,0.12);
+    border-radius: 8px; overflow: hidden;
+    margin-top: 3rem;
+  }
+  .pillar {
+    background: var(--deep);
+    padding: 2.5rem 2rem;
+    transition: background 0.25s;
+    cursor: default;
+  }
+  .pillar:hover { background: rgba(14,124,123,0.22); }
+  .pillar-icon {
+    width: 48px; height: 48px;
+    background: rgba(77,217,215,0.1);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.4rem;
+  }
+  .pillar-icon svg { width: 24px; height: 24px; stroke: var(--aqua); }
+  .pillar h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem; font-weight: 400;
+    color: white; margin-bottom: 0.7rem;
+  }
+  .pillar p { font-size: 0.85rem; line-height: 1.7; color: rgba(255,255,255,0.5); }
+
+  /* ─── SOLUTIONS ─── */
+  .solutions { background: var(--gray-100); }
+  .solutions-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 1.2rem;
+  }
+  .sol-card {
+    background: white; border-radius: 10px;
+    padding: 2rem 1.6rem;
+    border: 1px solid rgba(10,22,40,0.06);
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    cursor: default;
+  }
+  .sol-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(10,22,40,0.1);
+    border-color: rgba(14,124,123,0.25);
+  }
+  .sol-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, rgba(14,124,123,0.1), rgba(27,176,174,0.08));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.2rem;
+  }
+  .sol-icon svg { width: 22px; height: 22px; stroke: var(--teal); }
+  .sol-card h3 { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.55rem; }
+  .sol-card p { font-size: 0.8rem; line-height: 1.65; color: var(--gray-400); }
+  .sol-learn {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    color: var(--teal); font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.04em; margin-top: 1rem;
+    text-decoration: none;
+    transition: gap 0.2s;
+  }
+  .sol-learn:hover { gap: 0.55rem; }
+
+  /* ─── WHY CMK ─── */
+  .why-cmk {
+    background: white;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6rem; align-items: center;
+  }
+  .why-visual {
+    position: relative;
+  }
+  .why-img-wrapper {
+    border-radius: 12px; overflow: hidden;
+    background: linear-gradient(135deg, var(--deep) 0%, var(--teal) 100%);
+    height: 480px;
+    position: relative;
+  }
+  .why-img-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 70% at 50% 50%, rgba(77,217,215,0.15) 0%, transparent 60%),
+      linear-gradient(160deg, var(--deep) 0%, var(--teal) 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .why-img-icon { opacity: 0.15; }
+  .why-img-icon svg { width: 240px; height: 240px; stroke: white; }
+  .why-badge {
+    position: absolute; bottom: 2rem; left: 2rem;
+    background: white; border-radius: 10px;
+    padding: 1.2rem 1.6rem;
+    box-shadow: 0 20px 48px rgba(10,22,40,0.2);
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .why-badge-num {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem; font-weight: 700; color: var(--teal); line-height: 1;
+  }
+  .why-badge-label { font-size: 0.72rem; color: var(--gray-600); letter-spacing: 0.05em; line-height: 1.5; }
+  .why-points { display: flex; flex-direction: column; gap: 1.8rem; margin-top: 0.5rem; }
+  .why-point { display: flex; gap: 1.2rem; }
+  .why-point-icon {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: var(--gray-100); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .why-point-icon svg { width: 20px; height: 20px; stroke: var(--teal); }
+  .why-point h4 { font-size: 0.93rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--navy); }
+  .why-point p { font-size: 0.82rem; line-height: 1.65; color: var(--gray-400); }
+
+  /* ─── IMPACT ─── */
+  .impact { background: var(--cream); }
+  .impact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+  .impact-card {
+    background: white; border-radius: 12px; overflow: hidden;
+    border: 1px solid rgba(10,22,40,0.05);
+    transition: box-shadow 0.25s;
+  }
+  .impact-card:hover { box-shadow: 0 16px 48px rgba(10,22,40,0.1); }
+  .impact-img {
+    height: 200px;
+    background: linear-gradient(135deg, var(--deep), var(--teal));
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .impact-img-pattern {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.03) 10px, rgba(255,255,255,0.03) 20px);
+  }
+  .impact-img-icon svg { width: 80px; height: 80px; stroke: rgba(255,255,255,0.25); fill: none; }
+  .impact-body { padding: 1.8rem; }
+  .impact-tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+  .impact-tag {
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.25rem 0.7rem; border-radius: 100px; font-weight: 600;
+  }
+  .tag-water { background: rgba(14,124,123,0.1); color: var(--teal); }
+  .tag-solar { background: rgba(232,168,37,0.12); color: var(--gold); }
+  .tag-irrig { background: rgba(10,22,40,0.06); color: var(--navy); }
+  .tag-val { background: rgba(14,124,123,0.06); color: var(--gray-600); font-weight: 500; }
+  .impact-body h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 400; margin-bottom: 0.6rem; }
+  .impact-body p { font-size: 0.83rem; line-height: 1.7; color: var(--gray-600); margin-bottom: 1rem; }
+  .impact-status {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.75rem; font-weight: 600; color: var(--teal);
+  }
+  .impact-status::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--teal); display: inline-block;
+  }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    background: var(--navy); text-align: center;
+    padding: 6rem 5%;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 100% at 50% 50%, rgba(14,124,123,0.2) 0%, transparent 60%);
+  }
+  .cta-section .section-tag { color: var(--sky); }
+  .cta-section .section-title { color: white; max-width: none; }
+  .cta-section .section-sub { color: rgba(255,255,255,0.5); max-width: 500px; margin: 0 auto 2.5rem; }
+  .cta-info { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .cta-contact { display: flex; align-items: center; gap: 0.7rem; color: rgba(255,255,255,0.7); font-size: 0.88rem; }
+  .cta-contact svg { width: 16px; height: 16px; stroke: var(--aqua); }
+  .cta-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #060e1a;
+    padding: 3.5rem 5% 2rem;
+    border-top: 1px solid rgba(77,217,215,0.08);
+  }
+  .footer-inner {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+  .footer-brand p {
+    font-size: 0.82rem; line-height: 1.75;
+    color: rgba(255,255,255,0.4); margin-top: 1rem; max-width: 280px;
+  }
+  .footer-col h4 {
+    color: rgba(255,255,255,0.65); font-size: 0.7rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .footer-col a {
+    display: block; color: rgba(255,255,255,0.38);
+    text-decoration: none; font-size: 0.83rem;
+    margin-bottom: 0.6rem; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--sky); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 1.8rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+  .footer-bottom a { color: rgba(255,255,255,0.3); text-decoration: none; font-size: 0.75rem; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .solutions-grid { grid-template-columns: repeat(2, 1fr); }
+    .why-cmk { grid-template-columns: 1fr; gap: 3rem; }
+    .why-visual { display: none; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 4%; }
+    .nav-links { display: none; }
+    .stats-bar { grid-template-columns: repeat(2,1fr); }
+    .pillar-grid { grid-template-columns: 1fr; }
+    .solutions-grid { grid-template-columns: 1fr; }
+    .impact-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/></svg>
+    </div>
+    <div class="logo-text">
+      <strong>CMK Engineering</strong>
+      <span>Solutions</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#solutions">Products</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#impact">Projects</a></li>
+    <li><a href="#contact" class="nav-cta">Request a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-overlay"></div>
+  <div>
+    <div class="hero-content">
+      <div class="hero-badge">Trusted Water &amp; Energy Solutions in Malawi</div>
+      <h1>Building <em>Resilient</em><br>Communities Through<br>Sustainable Infrastructure</h1>
+      <p class="hero-sub">
+        From <strong>clean water access</strong> to <strong>climate-adaptive energy systems</strong>,
+        CMK Engineering Solutions delivers reliable infrastructure that strengthens community
+        resilience, safeguards livelihoods, and powers Malawi's sustainable future.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Get Your Free Quote →</a>
+        <a href="#solutions" class="btn-outline">Explore Products</a>
+      </div>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Authorized Davis &amp; Shirtliff Partner
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        Expert Installation &amp; Support
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/></svg>
+        Serving All Regions of Malawi
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item fade-up delay-1">
+    <div class="stat-num">65M+</div>
+    <div class="stat-label">MWK in Projects Delivered</div>
+  </div>
+  <div class="stat-item fade-up delay-2">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Client Satisfaction Rate</div>
+  </div>
+  <div class="stat-item fade-up delay-3">
+    <div class="stat-num">10+</div>
+    <div class="stat-label">Years of Excellence</div>
+  </div>
+  <div class="stat-item fade-up delay-4">
+    <div class="stat-num">3M+</div>
+    <div class="stat-label">Litres of Water Secured Daily</div>
+  </div>
+</div>
+
+<!-- RESILIENCE PILLARS -->
+<section class="resilience" id="about">
+  <div>
+    <span class="section-tag">Our Commitment</span>
+    <h2 class="section-title">Infrastructure That Protects<br>Communities When It Matters Most</h2>
+    <p class="section-sub">
+      In a climate-vulnerable nation like Malawi, access to water and energy is not just convenience —
+      it is the backbone of community resilience. CMK Engineering Solutions builds the systems that keep
+      families safe, farms productive, and businesses running through floods, droughts, and shocks.
+    </p>
+    <div class="pillar-grid">
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/>
+          </svg>
+        </div>
+        <h3>Water Security</h3>
+        <p>Reliable borehole, pump, and water treatment infrastructure ensures clean water access for communities even during prolonged dry seasons and climate shocks.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </div>
+        <h3>Climate-Adaptive Energy</h3>
+        <p>Solar-powered pumping and energy systems that operate off-grid — providing consistent power for water access, irrigation, and livelihoods regardless of grid instability.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <h3>Food System Resilience</h3>
+        <p>Precision drip irrigation and water-efficient systems enable smallholder farmers to maintain crop production through erratic rainfall, reducing climate-driven food insecurity.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"/>
+          </svg>
+        </div>
+        <h3>Community Empowerment</h3>
+        <p>Beyond equipment supply, we build local capacity through hands-on installation training, operational support, and maintenance knowledge transfer that lasts beyond the project.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <h3>Disaster-Proof Systems</h3>
+        <p>Remote monitoring via i-Dayliff, redundant solar backups, and robust installation standards ensure infrastructure remains operational during and after extreme weather events.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>
+          </svg>
+        </div>
+        <h3>Proven Impact at Scale</h3>
+        <p>From multi-community water treatment programmes to large-scale agricultural irrigation, our track record demonstrates delivery under the most demanding field conditions in Malawi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section class="solutions" id="solutions">
+  <span class="section-tag">Comprehensive Solutions</span>
+  <h2 class="section-title">Quality Equipment &amp; Expert Services<br>for Every Challenge</h2>
+  <p class="section-sub">From water pumps to solar energy systems, we provide the equipment and technical expertise to address Malawi's most pressing water and energy needs.</p>
+  <div class="solutions-grid">
+    <div class="sol-card">
+      <div class="sol-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/></svg>
+      </div>
+      <h3>Water Pumps</h3>
+      <p>Dayliff, Pedrollo, and Grundfos pumps for all applications, including high-efficiency inverter-controlled models for sustainable water access.</p>
+      <a href="#contact" class="sol-learn">Learn More →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M3 12h1m16 0h1m-9-9v1m0 16v1M5.6 5.6l.7.7m11.4 11.4l.7.7M5.6 18.4l.7-.7m11.4-11.4l.7-.7"/></svg>
+      </div>
+      <h3>Solar Solutions</h3>
+      <p>PV modules, hot water heaters, batteries, inverters, and AC/DC pumping systems from Huawei, Opti, and Steca for off-grid resilience.</p>
+      <a href="#contact" class="sol-learn">Learn More →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 009 9 9 9 0 009-9 9 9 0 00-9-9"/><path d="M12 7v5l3 3"/></svg>
+      </div>
+      <h3>Borehole Services</h3>
+      <p>Complete solutions including solar-powered pumps, i-Dayliff remote monitoring, installation, repair, and maintenance for year-round water security.</p>
+      <a href="#contact" class="sol-learn">Learn More →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12M12 12C12 12 7 9 7 5a5 5 0 0110 0c0 4-5 7-5 7z"/></svg>
+      </div>
+      <h3>Irrigation Systems</h3>
+      <p>Hunter rotors, sprays, controllers, and complete drip irrigation systems for climate-smart, water-efficient agricultural production.</p>
+      <a href="#contact" class="sol-learn">Learn More →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      </div>
+      <h3>Water Treatment</h3>
+      <p>UV disinfection, reverse osmosis, softeners, and filtration from Dupont, Pentair, and Hach — ensuring safe water for communities and industry.</p>
+      <a href="#contact" class="sol-learn">Learn More →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      </div>
+      <h3>Swimming Pools</h3>
+      <p>Fibreglass pools, chemicals, pumps, filters, lights, heating, and accessories — complete pool solutions for hospitality and residential clients.</p>
+      <a href="#contact" class="sol-learn">Learn More →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+      </div>
+      <h3>General Machinery</h3>
+      <p>Generators (1–1000 kVA), engines, and mowers from Perkins, Cummins, and Yangdong — keeping operations running when the grid fails.</p>
+      <a href="#contact" class="sol-learn">Learn More →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 9H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V9h-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 15H10v-1.5c0-.83-.67-1.5-1.5-1.5S7 12.67 7 13.5V15h1.5z"/></svg>
+      </div>
+      <h3>Chemicals</h3>
+      <p>Pool and water treatment chemicals for domestic and industrial applications from trusted brands including Dayliff, Kurita, and Genesis.</p>
+      <a href="#contact" class="sol-learn">Learn More →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CMK -->
+<section class="why-cmk" id="services">
+  <div class="why-visual">
+    <div class="why-img-wrapper">
+      <div class="why-img-bg">
+        <div class="why-img-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/></svg>
+        </div>
+      </div>
+      <div class="why-badge">
+        <div>
+          <div class="why-badge-num">65M+</div>
+          <div class="why-badge-label">MWK in Projects<br>Successfully Delivered</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <span class="section-tag">Why Malawi Trusts CMK</span>
+    <h2 class="section-title">More Than a Supplier —<br>A Partner in Resilience</h2>
+    <p class="section-sub">We are more than equipment vendors. We are infrastructure partners who understand Malawi's water challenges, climate vulnerabilities, and community needs.</p>
+    <div class="why-points">
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div>
+          <h4>Authorized Davis &amp; Shirtliff Partner</h4>
+          <p>Direct access to world-class products from Dayliff, Pedrollo, Grundfos, Huawei, and other global leaders — backed by manufacturer warranties and certified support.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <div>
+          <h4>Complete Installation &amp; Technical Support</h4>
+          <p>Our certified engineers and field technicians provide full installation, commissioning, repair, preventive maintenance, and ongoing operational support.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div>
+          <h4>Remote Monitoring &amp; Smart Technology</h4>
+          <p>i-Dayliff remote monitoring enables real-time performance tracking of borehole and pump systems — critical for early detection of failures in remote or high-risk areas.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/></svg>
+        </div>
+        <div>
+          <h4>Deep Knowledge of Malawi's Context</h4>
+          <p>Over a decade operating across all regions of Malawi gives us unparalleled understanding of local terrain, water table conditions, and community infrastructure needs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT / PROJECTS -->
+<section class="impact" id="impact">
+  <span class="section-tag">Success Stories</span>
+  <h2 class="section-title">Delivering Results Across Malawi</h2>
+  <p class="section-sub">From clean water programmes to climate-smart agriculture, we have partnered with organizations and communities to build infrastructure that makes a lasting difference.</p>
+  <div class="impact-grid">
+    <div class="impact-card">
+      <div class="impact-img">
+        <div class="impact-img-pattern"></div>
+        <div class="impact-img-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/></svg>
+        </div>
+      </div>
+      <div class="impact-body">
+        <div class="impact-tags">
+          <span class="impact-tag tag-water">Water Treatment</span>
+          <span class="impact-tag tag-val">42M MWK</span>
+        </div>
+        <h3>Evidence Action Water Treatment Programme</h3>
+        <p>Supply of comprehensive water treatment equipment and chemicals to support safe drinking water access across multiple vulnerable communities in Malawi.</p>
+        <span class="impact-status">Successfully Delivered</span>
+      </div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-img" style="background: linear-gradient(135deg, #1a3a1a, #2d7a2d);">
+        <div class="impact-img-pattern"></div>
+        <div class="impact-img-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12M12 12C12 12 7 9 7 5a5 5 0 0110 0c0 4-5 7-5 7z"/></svg>
+        </div>
+      </div>
+      <div class="impact-body">
+        <div class="impact-tags">
+          <span class="impact-tag tag-irrig">Irrigation</span>
+          <span class="impact-tag tag-val">3M MWK</span>
+        </div>
+        <h3>Agricultural Drip Irrigation System — Mike Appel &amp; Gatto</h3>
+        <p>Design and installation of an efficient drip irrigation system for large-scale agricultural operations — maximizing water efficiency and supporting climate-adaptive food production.</p>
+        <span class="impact-status">Successfully Delivered</span>
+      </div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-img" style="background: linear-gradient(135deg, #1a2a40, #1a6a6a);">
+        <div class="impact-img-pattern"></div>
+        <div class="impact-img-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+        </div>
+      </div>
+      <div class="impact-body">
+        <div class="impact-tags">
+          <span class="impact-tag tag-solar">Solar Energy</span>
+          <span class="impact-tag tag-val">23M MWK</span>
+        </div>
+        <h3>Evidence Action Solar-Powered Water System</h3>
+        <p>Supply and installation of solar-powered borehole pumping systems providing off-grid, climate-resilient water access for communities across Southern Malawi.</p>
+        <span class="impact-status">Successfully Delivered</span>
+      </div>
+    </div>
+    <div class="impact-card" style="background: var(--navy); border-color: rgba(77,217,215,0.15);">
+      <div style="padding: 3rem 2rem; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;">
+        <span class="section-tag" style="margin-bottom: 1rem;">Partner With Us</span>
+        <h3 style="font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 300; color: white; margin-bottom: 1rem; line-height: 1.4;">Have a water, energy, or infrastructure project in Malawi?</h3>
+        <p style="font-size: 0.83rem; line-height: 1.7; color: rgba(255,255,255,0.5); margin-bottom: 1.8rem;">We work with NGOs, government agencies, agricultural enterprises, and private clients to design and deliver reliable, sustainable solutions.</p>
+        <a href="#contact" class="btn-primary">Discuss Your Project →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div style="position:relative;z-index:2;">
+    <span class="section-tag">Get Started Today</span>
+    <h2 class="section-title" style="margin:0 auto 1rem;">Ready to Power Your Project?</h2>
+    <p class="section-sub">Whether you need water pumps, solar solutions, borehole services, or irrigation systems — our expert team is ready to design and deliver the right solution for your needs.</p>
+    <div class="cta-info">
+      <div class="cta-contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +265 992 371 313
+      </div>
+      <div class="cta-contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        cphiri@cmkengineeringsolutions.com
+      </div>
+      <div class="cta-contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Malawi (Nationwide Service)
+      </div>
+    </div>
+    <div class="cta-actions">
+      <a href="mailto:cphiri@cmkengineeringsolutions.com" class="btn-primary">Request Your Free Quote →</a>
+      <a href="tel:+265992371313" class="btn-outline">Call Us Now</a>
+    </div>
+    <p style="margin-top:1.5rem;font-size:0.75rem;color:rgba(255,255,255,0.3);letter-spacing:0.05em;">No obligation · Expert consultation · Quick response</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="margin-bottom:1rem;display:inline-flex;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/></svg>
+        </div>
+        <div class="logo-text">
+          <strong>CMK Engineering</strong>
+          <span>Solutions</span>
+        </div>
+      </a>
+      <p>Empowering Malawi through sustainable water and energy solutions. Your trusted partner for quality equipment, expert installation, and long-term infrastructure resilience.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#solutions">Products</a>
+      <a href="#services">Services</a>
+      <a href="#impact">Projects</a>
+    </div>
+    <div class="footer-col">
+      <h4>Our Solutions</h4>
+      <a href="#solutions">Water Pumps</a>
+      <a href="#solutions">Borehole Services</a>
+      <a href="#solutions">Solar Solutions</a>
+      <a href="#solutions">Irrigation Systems</a>
+      <a href="#solutions">Water Treatment</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <a href="tel:+265992371313">+265 992 371 313</a>
+      <a href="mailto:cphiri@cmkengineeringsolutions.com">cphiri@cmkengineeringsolutions.com</a>
+      <a href="#">Malawi</a>
+      <div style="margin-top:1rem;display:flex;gap:0.7rem;">
+        <a href="#" style="width:32px;height:32px;background:rgba(255,255,255,0.06);border-radius:6px;display:flex;align-items:center;justify-content:center;transition:background 0.2s;" onmouseover="this.style.background='rgba(77,217,215,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="#" style="width:32px;height:32px;background:rgba(255,255,255,0.06);border-radius:6px;display:flex;align-items:center;justify-content:center;transition:background 0.2s;" onmouseover="this.style.background='rgba(77,217,215,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" style="width:32px;height:32px;background:rgba(255,255,255,0.06);border-radius:6px;display:flex;align-items:center;justify-content:center;transition:background 0.2s;" onmouseover="this.style.background='rgba(77,217,215,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 CMK Engineering Solutions. All rights reserved.</p>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.style.opacity = '1';
+        el.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.sol-card, .pillar, .impact-card, .why-point, .stat-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 60) {
+      nav.style.padding = '0.8rem 5%';
+    } else {
+      nav.style.padding = '1.2rem 5%';
+    }
+  });
+</script>
+
+</body>
+</html>
